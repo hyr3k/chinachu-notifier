@@ -28,7 +28,7 @@ argv2 = sys.argv[2]
 
 program_data = json.loads(argv2)
 
-content = "録画終了: " + program_data['fullTitle']
+content = slack_post_text + program_data['fullTitle']
 
 slack = slackweb.Slack(url=slack_url)
 

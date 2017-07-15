@@ -2,11 +2,15 @@
 
 import configparser
 import sys
+import os
 import json
 import slackweb
 
+config_dir = os.path.dirname(os.path.abspath(__file__))
+config_path = config_dir + "/config.ini"
+
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read(config_path)
 if config['slack']['slack_notify'] == 'yes':
   slack_url = config['slack']['hook_url']
   slack_icon = config['slack']['icon_url']

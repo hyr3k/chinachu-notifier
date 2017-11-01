@@ -1,0 +1,7 @@
+[slack]
+slack_notify = yes
+hook_url = "Your slack webhook URL"
+icon_emoji = ":ghost:"
+channel = chinachu
+username = Chinachu
+post_text = Finish recording:

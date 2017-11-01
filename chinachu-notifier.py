@@ -4,7 +4,7 @@ import configparser
 import sys
 import os
 import json
-import slackweb
+import requests
 
 config_dir = os.path.dirname(os.path.abspath(__file__))
 config_path = config_dir + "/config.ini"
@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 config.read(config_path)
 if config['slack']['slack_notify'] == 'yes':
   slack_url = config['slack']['hook_url']
-  slack_icon = config['slack']['icon_url']
+  slack_icon_emoji = config['slack']['icon_emoji']
   slack_channel = config['slack']['channel']
   slack_username = config['slack']['username']
   slack_post_text = config['slack']['post_text']
@@ -30,6 +30,12 @@ program_data = json.loads(argv2)
 
 content = slack_post_text + program_data['fullTitle']
 
-slack = slackweb.Slack(url=slack_url)
+post_json = {
+  "text":content,
+  "username":slack_username,
+  "icon_emoji":slack_icon_emoji,
+  "channnel":slack_channel,
+  }
 
-slack.notify(text=content, channel=slack_channel, username=slack_username)
+if __name__ == '__main__':
+  r = requests.post(slack_url, data = json.dumps(post_json))
